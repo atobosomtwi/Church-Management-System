@@ -1,17 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
-</head>
-
-<body>
-    {% for member in members %}
-    <p>{{member.full_name}} - {{member.email}}</p>
-    {% endfor %}
-</body>
-
-</html>
+{% extends 'base.html' %}{% load static %} {% block main %}
+<br><br>
+<br><br>
+<br><br>
+<div class="container">
+    <h1>Welcome to APOSTOLIC MGT</h1>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti, corporis! Corporis doloribus numquam modi quae alias velit placeat autem ex totam dolorem facere consequatur officiis quaerat et ipsum possimus, illum optio. Dolores tempore dolorum
+        fugiat ad, pariatur commodi consectetur doloremque eos unde laborum asperiores qui voluptas eaque aliquam eveniet doloribus!</p>
+    <!-- <p>{{member.full_name}} - {{member.email}}</p> -->
+</div>
+<br><br>
+<br><br>
+<br><br><br><br>
+<br><br> {% endblock main %}
