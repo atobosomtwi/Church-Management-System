@@ -1,26 +1,63 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Sign In</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{%block title %} Apostolic Church {% endblock title%}
+    </title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="{% static 'assets/js/plugin/webfont/webfont.min.js' %}"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ["Public Sans:300,400,500,600,700"]
+            },
+            custom: {
+                families: [
+                    "Font Awesome 5 Solid",
+                    "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["assets/css/fonts.min.css"],
+            },
+            active: function() {
+                sessionStorage.fonts = true;
+            },
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/kaiadmin.min.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
 </head>
 
 <body>
 
-    <h2>Sign In</h2>
+    <div class="container w-50 mt-5 ms-auto p-4 bg-light">
+        <h2>Sign In</h2>
 
-    <form method="POST">
-        {% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
 
-        <label>Email:</label>
-        <input type="email" name="email" required><br><br>
+            <label>Email:</label>
+            <input type="email" name="email" class="form-control" required><br><br>
 
-        <label>Password:</label>
-        <input type="password" name="password" required><br><br>
+            <label>Password:</label>
+            <input type="password" name="password" class="form-control" required><br><br>
 
-        <button type="submit">Login</button>
-    </form>
+            <button type="submit" class="btn btn-secondary">Login</button>
+        </form>
+    </div>
 
     <!-- Display Messages -->
     {% if messages %} {% for message in messages %}

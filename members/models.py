@@ -20,6 +20,7 @@ class Members(models.Model):
     gender = models.CharField(max_length=20, choices=gender)
     date_registered = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    is_baptized = models.BooleanField(default=False)
 
     def __str__(self):
         return self.full_name
