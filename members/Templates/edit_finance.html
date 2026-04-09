@@ -1,0 +1,60 @@
+ {% extends 'base.html' %} {%block title %} Apostolic Church {% endblock title%}
+<!--  -->
+
+{% block main %}
+<div class="container">
+    <div class="page-inner">
+        <h2>Edit Transaction</h2>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <label>Category:</label>
+                    <select name="category" id="" class="form-control form-control-lg">
+                        <option value="single"{% if transaction.category == 'giving' %} selected {% endif %}>Giving</option>
+                        <option value="married" {% if transaction.category == 'tithe' %} selected {% endif %}>Tithe</option>
+                        <option value="divorced" {% if transaction.category == 'donation' %} selected {% endif %}>Donation</option>
+                        <option value="married" {% if transaction.category == 'benevolence' %} selected {% endif %}>Benevolence</option>
+                        <option value="divorced" {% if transaction.category == 'miscellaneous' %} selected {% endif %}>Miscellaneous</option>
+                       
+                    </select>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <h1>{{transaction.type}}</h1>
+                    <label>Type:</label>
+                    <select name="type" id="" class="form-control form-control-lg">
+                        <option value="">Select type</option>
+                        <option value="Income" {% if transaction.type == 'Income' %} selected {% endif %}>Income</option>
+                        <option value="Expense" {% if transaction.type == 'Expense' %} selected {% endif %}>Expenditure</option>
+                       
+                        
+                    </select>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <label>Purpose:</label>
+                    <input type="text" name="purpose" value="{{transaction.purpose}}" class='form-control form-control-lg' required>
+                </div>
+
+                <div class=" col-md-6 mt-3 ">
+                    <label>Amount:</label>
+                    <input type="number " name="amount " value="{{transaction.amount}}" class='form-control form-control-lg' required>
+                </div>
+                <!-- 
+                <div class="col-md-6 mt-3 ">
+                    <label>Date Created:</label>
+                    <input type="date " name="date_created " value="{{transaction.date_created}}" class='form-control form-control-lg' required>
+                </div> -->
+
+
+            </div>
+
+
+
+            <br>
+            <button type="submit " class="btn btn-primary ">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock main %}

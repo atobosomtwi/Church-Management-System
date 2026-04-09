@@ -14,8 +14,8 @@ def showAlert(request, message, alert_type):
 
     izitoast(
         request=request,
-        model="success",  # or "error", "warning", "info"
-        message="Operation completed successfully!",
+        model=alert_type,  # or "error", "warning", "info"
+        message=message,
         diversify=diversify
     )
 

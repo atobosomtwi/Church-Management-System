@@ -1,0 +1,25 @@
+{% extends 'base.html' %}{% load static %}
+
+<!--  -->
+
+{% block main %}
+<div class="container">
+    <div class="row d-flex mt-5 p-4">
+        <div class="col-md-4">
+            {% if user.is_authenticated and member.picture %}
+            <img src="{{ member.picture.url }}" alt="Profile Image" class="img-fluid rounded"> {% else %}
+            <img src="{% static 'assets/img/profile.jpg' %}" alt="No profile image" class="img-fluid"> {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h4>Fullname: <strong>{{ member.full_name }}</strong></h4>
+            <h4>Email: <strong>{{ member.email }}</strong></h4>
+            <h4>Phone Number: <strong>{{ member.phone_number }}</strong></h4>
+            <h4>Marital Status: <strong>{{ member.marital_status.title }}</strong></h4>
+            <h4>Baptism Status: {% if member.is_baptized %}
+                <span class="badge bg-success">Baptized </span> {% else %}
+                <span class=" badge bg-warning ">Not Baptized</span> {% endif%}
+            </h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

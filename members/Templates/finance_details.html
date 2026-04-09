@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% load static %}{% load humanize %}
+
+<!--  -->
+
+{% block main %}
+<div class="container">
+    <div class="row d-flex mt-5 p-4">
+
+        <div class="col-md-12">
+            <h4>Category: {% if transaction.category %}
+                <span class="badge bg-success">Giving </span> {% else %}
+                <span class=" badge bg-warning ">Expenditure</span> {% endif%}
+            </h4>
+            <!-- <h4>Category: <strong>{{ transaction.category }}</strong></h4> -->
+            <h4>Type: <strong>{{ transaction.type }}</strong></h4>
+            <h4>Purpose: <strong>{{ transaction.purpose }}</strong></h4>
+            <h4>Amount: <strong>{{ transaction.amount | intcomma }}</strong></h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

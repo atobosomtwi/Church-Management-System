@@ -53,6 +53,8 @@
 
 
     </div>
+    <!-- ---------izitoast------------ -->
+    {% include 'includes/izitoast.html' %}
     <!--   Core JS Files   -->
     <script src="{% static 'assets/js/core/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
@@ -117,6 +119,10 @@
             fillColor: "rgba(255, 165, 52, .14)",
         });
     </script>
+
+
+    {% block extrajs %} {% endblock extrajs %}
+
 </body>
 
 </html>
