@@ -1,0 +1,55 @@
+ {% extends 'base.html' %} {%block title %} Apostolic Church {% endblock title%}
+<!--  -->
+
+{% block main %}
+<div class="container">
+    <div class="page-inner">
+        <h2>Register New Visitor</h2>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <label>FullName:</label>
+                    <input type="text" name="full_name" class='form-control form-control-lg' required>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label>Gender:</label>
+                    <select name="gender" id="" class="form-control form-control-lg">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+
+                    </select>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label>Phone Number:</label>
+                    <input type="text" name="phone_number" class='form-control form-control-lg' required>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <label>Location:</label>
+                    <input type="text" name="location" class='form-control form-control-lg' required>
+                </div>
+
+                <div class="col-md-3 mt-3">
+                    <label>Type of Service:</label>
+                    <select name="service_type" id="" class="form-control form-control-lg">
+                        <option value="">Select Service</option>
+                        <option value="sunday">Sunday Service</option>
+                        <option value="midweek">Midweek Service</option>
+
+                    </select>
+                </div>
+
+
+            </div>
+
+
+
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock main %}

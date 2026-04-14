@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Members, UserProfiles, Finance,Attendance
+from . models import Members, UserProfiles, Finance,Attendance, Visitors
 # testing
 
 class MembersAdmin(admin.ModelAdmin):
@@ -15,6 +15,7 @@ class UserProfilesAdmin(admin.ModelAdmin):
 admin.site.register(UserProfiles, UserProfilesAdmin)
 admin.site.register(Members, MembersAdmin)
 
+
 # Changing Admin Site name 
 admin.site.site_title = "Apostolic church"
 admin.site.site_header = "Apostolic church Portal"
@@ -29,3 +30,18 @@ class FinanceAdmin(admin.ModelAdmin):
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
     list_display = ("date", "recorded_by", "service_type", "non_registered", "member")
+
+
+@admin.register(Visitors)
+class VisitorsAdmin(admin.ModelAdmin):
+    list_display = ('full_name','gender', 'phone_number', 'location', 'service_type' , 'date_registered')
+    search_fields = ('full_name', 'phone_number')
+    list_filter = ['gender', 'date_registered']
+
+
+# @admin.register()
+# class Admin(admin.ModelAdmin):
+#     list_display = ("")
+
+
+

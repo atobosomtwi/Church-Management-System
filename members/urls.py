@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('login/', views.sign_in, name='sign_in'),
+    path('signout/', views.signout, name='signout'),
     path('register/', views.sign_up, name='sign_up'),
     path('add_member/', views.add_member, name='add_member'),
     path('finance/', views.finance, name='finance'),
@@ -20,4 +21,11 @@ urlpatterns = [
     path('search/', search_view, name='search'),
     path('attendance/', views.attendance, name='attendance'),
     path('mark_attendance/', views.mark_attendance, name='mark_attendance'),
+    path('visitors/', views.visitors, name='visitors'),
+    path('add_visitor/', views.add_visitor, name='add_visitor'),
+    path('edit_visitor/<uuid:uuid>/', views.edit_visitor, name='edit_visitor'),
+    path('delete_visitor/<uuid:uuid>/', views.delete_visitor, name='delete_visitor'),
+
+
+    
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from . models import Members, Finance, Attendance
+from . models import Members, Finance, Attendance, Visitors
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -22,11 +22,30 @@ from django.utils import timezone
 #     # return render(request, 'home.html', {'members':members})
 #     return render(request, 'home.html')
 
+def signout(request):
+    logout(request)
+    return redirect('sign_in')
+
 @login_required(login_url='sign_in')
 def dashboard(request):
     initials = request.user.username[0]
     members = Members.objects.all().order_by('-id')[:5]
-    return render(request, "index.html", {"members": members, 'initials':initials})
+    transactions = Finance.objects.all().order_by('-date_created')[:5]
+    total_income = 0 
+    total_sunday_records = 0
+    for income in Finance.objects.filter(type="Income"):
+        total_income += income.amount
+
+   
+    print(total_income)
+    context = {"members": members, 
+               'initials':initials, 
+               'transactions':transactions,
+               'baptized': Members.objects.filter(is_baptized=True).count(),
+                "total_income": total_income,
+                "service_type" : Attendance.objects.filter(service_type='sunday').count()
+                }
+    return render(request, "index.html", context)
 
 
 def sign_in(request):
@@ -182,11 +201,10 @@ def delete_member(request, uuid):
 
 
 def search_view(request):
-    query = Members.objects.GET.get('q')  # get search input
-    results = []
+    query = request.GET.get('q')  # get search input
+    
 
-    if query:
-        results = Members.objects.filter(name__icontains=query)
+    results = Members.objects.filter(full_name__icontains=query)
 
     context = {
         'query': query,
@@ -319,4 +337,65 @@ def mark_attendance(request):
             showAlert(request, "Attendance recorded", "success")
         return redirect('attendance')
 
+def visitors(request):
+    visitors = Visitors.objects.all().order_by('id')
+    context = {
+        'visitors': visitors,
+        'total_visitors': Visitors.objects.all().count(),
+        'service_type1': Visitors.objects.filter(service_type='sunday').count(),
+        'service_type2': Visitors.objects.filter( service_type='midweek').count(),
+        
+    }
+    return render(request, 'visitors.html', context)
 
+def add_visitor(request):
+    if request.method == "POST" or request.FILES:
+        full_name = request.POST['full_name']
+        gender = request.POST['gender']
+        phone_number = request.POST['phone_number']
+        service_type = request.POST['service_type']
+        location = request.POST['location']
+       
+
+        visitor = Visitors.objects.create(
+            full_name = full_name,
+            gender= gender,
+            phone_number = phone_number,
+            service_type = service_type,
+            location = location,
+           
+        )
+      
+        visitor.save()
+        showAlert(request, f"{visitor.full_name} added successfully", 'success')
+        return redirect('visitors')
+    return render(request, 'add_visitor.html')
+
+@login_required(login_url='sign_in')
+def edit_visitor(request, uuid):
+    visitor = Visitors.objects.get(uuid=uuid)
+    if request.method == 'POST':
+        visitor.full_name = request.POST.get('full_name')
+        visitor.gender = request.POST.get('gender')
+        visitor.service_type = request.POST.get('service_type')
+        visitor.phone_number = request.POST.get('phone_number')
+        visitor.location = request.POST.get('location')
+       
+        
+        visitor.save()
+        showAlert(request, f"{visitor.full_name.split(' ')[0]} updated successfully", 'success')
+        return redirect('visitors')
+    
+    context = {
+        'visitor': visitor
+    }
+
+    return render(request, 'edit_visitor.html', context)
+
+@login_required(login_url='sign_in')
+def delete_visitor(request, uuid):
+    # member = get_object_or_404(Members, uuid=uuid)
+    visitor = Visitors.objects.get(uuid=uuid)
+    visitor.delete()
+    showAlert(request, f"{visitor.full_name} deleted successfully", 'success')
+    return redirect('visitors')

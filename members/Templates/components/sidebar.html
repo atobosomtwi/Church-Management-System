@@ -24,41 +24,45 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
-                <li class="nav-item active">
+                <li class="nav-item {% if request.resolver_match.url_name == 'dashboard' %} active {% endif %}">
                     <a href="{% url 'dashboard' %}" aria-expanded="false">
-                        <i class="fas fa-home"></i>
+                        <i class="fa-solid fa-gauge"></i>
                         <p>Dashboard</p>
                         <span class="caret"></span>
                     </a>
 
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item {% if request.resolver_match.url_name == 'members' %} active {% endif %}">
                     <a href="{% url 'members' %}" aria-expanded="false">
-                        <i class="fas fa-home"></i>
+                        <!-- <i class="fas fa-home"></i> -->
+                        <i class="ri-team-fill"></i>
                         <p>Members</p>
                         <!-- <span class="caret"></span> -->
                     </a>
 
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item {% if request.resolver_match.url_name == 'attendance' %} active {% endif %}">
                     <a href="{% url 'attendance' %}" aria-expanded="false">
-                        <i class="fas fa-home"></i>
+                        <!-- <i class="fas fa-home"></i> -->
+                        <i class="ri-calendar-check-line"></i>
                         <p>Attendance</p>
                         <!-- <span class="caret"></span> -->
                     </a>
 
                 </li>
-                <li class="nav-item ">
-                    <a href="{% url 'dashboard' %}" aria-expanded="false">
-                        <i class="fas fa-home"></i>
+                <li class="nav-item {% if request.resolver_match.url_name == 'visitors' %} active {% endif %}">
+                    <a href="{% url 'visitors' %}" aria-expanded="false">
+                        <!-- <i class="fas fa-home"></i> -->
+                        <i class="ri-group-3-line"></i>
                         <p>Visitors</p>
                         <!-- <span class="caret"></span> -->
                     </a>
 
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item {% if request.resolver_match.url_name == 'finance' %} active {% endif %}">
                     <a href="{% url 'finance' %}" aria-expanded="false">
-                        <i class="fas fa-home"></i>
+                        <!-- <i class="fas fa-home"></i> -->
+                        <i class="ri-money-dollar-circle-line"></i>
                         <p>Finance</p>
                         <!-- <span class="caret"></span> -->
                     </a>

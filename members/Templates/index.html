@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load static %}
+{% extends 'base.html' %}{% load static %}{% load humanize %}
 
 <!--  -->
 
@@ -28,7 +28,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Total Members</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <h4 class="card-title">{{members.count}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category"> Sunday Census</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <h4 class="card-title">{{service_type}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Baptized Members</p>
-                                    <h4 class="card-title"> 1,345</h4>
+                                    <h4 class="card-title"> {{baptized}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Monthly Finance</p>
-                                    <h4 class="card-title">576</h4>
+                                    <h4 class="card-title">{{total_income}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -114,59 +114,38 @@
                       </div>
                     </div>
                     <div class="card-list py-4">
+                      {% for transaction in transactions %}
                       <div class="item-list">
-                        <!-- <div class="avatar">
-                          <img
-                            src="assets/img/jm_denis.jpg"
-                            alt="..."
-                            class="avatar-img rounded-circle"
-                          />
-                        </div> -->
-                        <div class="avatar">
-                          <span
-                            class="avatar-title rounded-circle border border-white bg-secondary"
-                            >J</span
-                          >
+                        
+                        
+                          <div class="info-user ms-3">
+                            <div class="username">{{transaction.amount | intcomma}}</div>
+                            <div class="status">{{transaction.category}}</div>
+                          </div>
+                          <a class="btn btn-icon btn-link op-8 me-1" href="{% url 'finance_details' transaction.uuid %}">
+                            <i class="far fa-eye"></i>
+                          </a>
+
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
-                        <div class="info-user ms-3">
-                          <div class="username">Jimmy Denis</div>
-                          <div class="status">Graphic Designer</div>
-                        </div>
-                        <button class="btn btn-icon btn-link op-8 me-1">
-                          <i class="far fa-envelope"></i>
-                        </button>
-                        <button class="btn btn-icon btn-link btn-danger op-8">
-                          <i class="fas fa-ban"></i>
-                        </button>
-                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="card card-round">
-                  <div class="card-header">
-                    <div class="card-head-row card-tools-still-right">
-                      <div class="card-title">Recently Added members</div>
-                      <div class="card-tools">
-                        <div class="dropdown">
-                          <button
-                            class="btn btn-icon btn-clean me-0"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-bs-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
+                    <div class="col-md-8">
+                        <div class="card card-round">
+                            <div class="card-header">
+                                <div class="card-head-row card-tools-still-right">
+                                    <div class="card-title">Recently Added members</div>
+                                    <div class="card-tools">
+                                        <div class="dropdown">
+                                            <button class="btn btn-icon btn-clean me-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-h"></i>
                           </button>
-                          <div
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton"
-                          >
-                            <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a
                             >
                           </div>
                         </div>
@@ -184,7 +163,7 @@
                             <th scope="col" class="text-end">Phone Number</th>
                             <th scope="col" class="text-end">Gender</th>
                             <th scope="col" class="text-end">Location</th>
-                            <th scope="col" class="text-end">Baptized</th>
+                            <th scope="col" class="text-end">View</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -198,22 +177,20 @@
                             <td class="text-end">{{member.gender}}</td>
                             <td class="text-end">{{member.location}}</td>
                             <td class="text-end">
-                              {% if member.is_baptized %}
-                              <span class="badge badge-success">Baptized</span>
-                              {% else %}
-                              <span class="badge badge-danger">Not Baptized</span>
-                              {% endif %}
-                            </td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                      </table>
+                             <a class="btn btn-icon btn-link op-8 me-1" href="{% url 'member_details' member.uuid %}">
+                            <i class="far fa-eye"></i>
+                          </a>
+                                                </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-{% endblock main %}
+                    {% endblock main %}

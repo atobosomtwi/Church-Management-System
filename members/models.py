@@ -117,3 +117,20 @@ class Attendance(models.Model):
         verbose_name = 'Attendance'
         verbose_name_plural = 'Attendance'
 
+class Visitors(models.Model):
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    full_name = models.CharField( max_length=50)
+    gender = models.CharField(max_length=20, choices=gender)
+    phone_number = models.CharField(null=True, blank=True, default='N/A')
+    location = models.CharField(max_length=100)
+    service_type = models.CharField(max_length=100, choices=service_choices, null=True)
+    date_registered = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
+    
+    class Meta:
+        db_table = 'visitors'
+        managed = True
+        verbose_name = 'Visitor'
+        verbose_name_plural = 'visitors'
